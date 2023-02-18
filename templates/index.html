@@ -1,0 +1,31 @@
+
+<html>
+  <head>
+    <title>Change Color Example</title>
+    <script type="text/javascript">
+      function submitForm(){
+        var commandText = document.getElementById("command_text").value;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+              document.open();
+              document.write(xhr.responseText);
+              document.close();
+            }
+          }
+        xhr.open("POST", "/change_color");
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(JSON.stringify({ 'command_text' : commandText }));
+        return false;
+      }
+    </script>
+  </head>
+  <body>
+    <form action="" onsubmit="return submitForm()">
+        Command: <input type="text" name="command_text" id="command_text"/><br>
+        <input type="submit" value="Submit"/>
+    </form>
+    <div style="width:100px; height:100px; background-color:{{color_name}};">
+    </div><br>
+  </body>
+</html>
